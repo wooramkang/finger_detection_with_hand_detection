@@ -46,7 +46,7 @@ message ConvolutionalBoxPredictor {
   optional int32 box_code_size = 8 [default = 4];
 
   // Whether to apply sigmoid to the output of class predictions.
-  // TODO: Do we need this since we have a post processing module.?
+
   optional bool apply_sigmoid_to_scores = 9 [default = false];
 }
 
