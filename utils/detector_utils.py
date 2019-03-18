@@ -143,7 +143,9 @@ def load_inference_graph():
 # You can modify this to also draw a label.
 def draw_box_on_image(num_hands_detect, score_thresh, scores, boxes, im_width, im_height, image_np):
     for i in range(num_hands_detect):
+
         if (scores[i] > score_thresh):
+
             (left, right, top, bottom) = (boxes[i][1] * im_width, boxes[i][3] * im_width,
                                           boxes[i][0] * im_height, boxes[i][2] * im_height)
             p1 = (int(left), int(top))
@@ -154,9 +156,28 @@ def draw_box_on_image(num_hands_detect, score_thresh, scores, boxes, im_width, i
             out_part_image = find_finger(part_image)
 
             cv2.imshow("temporal" + str(i), out_part_image)
+
+            print((left, right, top, bottom))
             #cv2.waitKey(2000)
 
     #cv2.destroyAllWindows()
+def make_real_bbox(num_hands_detect, score_thresh, scores, boxes, im_width, im_height, image_np):
+    bbox = []
+
+    for i in range(num_hands_detect):
+        if (scores[i] > score_thresh):
+            (left, right, top, bottom) = (boxes[i][1] * im_width, boxes[i][3] * im_width,
+                                          boxes[i][0] * im_height, boxes[i][2] * im_height)
+            p1 = (int(left), int(top))
+            p2 = (int(right), int(bottom))
+            cv2.rectangle(image_np, p1, p2, (77, 255, 9), 3, 1)
+
+            part_image = image_np[int(top):int(bottom), int(left):int(right)]
+            out_part_image = find_finger(part_image)
+            bbox.append((left, right, top, bottom))
+
+    return bbox
+
 
 # Show fps value on image.
 def draw_fps_on_image(fps, image_np):

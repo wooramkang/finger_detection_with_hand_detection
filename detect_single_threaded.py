@@ -59,6 +59,7 @@ def finger_detect(frame):
     contours, hierarchy = cv2.findContours(skinMask1, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     length = len(contours)
     maxArea = -1
+
     if length > 0:
         for i in range(length):
             temp = contours[i]
@@ -78,6 +79,7 @@ def finger_detect(frame):
         cv2.imshow('output', drawing)
 
     k = cv2.waitKey(500)
+
 
 if __name__ == '__main__':
 
@@ -167,7 +169,6 @@ if __name__ == '__main__':
 
         boxes, scores = detector_utils.detect_objects(image_np,
                                                       detection_graph, sess)
-
 
         # draw bounding boxes on frame
 
